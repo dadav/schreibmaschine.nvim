@@ -1,6 +1,34 @@
-local M = {}
+<h1 align="center">🔊schreibmaschine.nvim</h1>
 
----@class Options
+<p align="center">
+  <img src="logo.jpg" width="400" />
+  <br />
+  This plugin maps events and keys to sound files.
+</p>
+
+## ⭐Installation
+
+### [lazy.nvim](https://github.com/folke/lazy.nvim)
+
+```lua
+{
+  "dadav/schreibmaschine.nvim",
+  lazy = false,
+  opts = {
+    -- your configuration comes here
+    -- or leave it empty to use the default settings
+    -- refer to the configuration section below
+  }
+}
+```
+
+### Requirements
+
+- [mpv](https://github.com/mpv-player/mpv)
+
+## 🎨 Configuration
+
+```lua
 local defaults = {
   -- set the active profile, which must be defined in `profiles`
   active_profile = "typewriter",
@@ -67,8 +95,6 @@ local defaults = {
   -- the default profile options.
   -- overwrite them in profiles.$name.settings
   defaults = {
-    -- kill remaining processes on VimLeavePre
-    cleanup = false,
     -- if enabled, sounds will be discarded if `max_parallel_sounds` is reached
     discard_when_busy = true,
     -- limits the parallel sounds (mpv processes)
@@ -90,15 +116,26 @@ local defaults = {
     },
   },
 }
+```
 
----@type Options
-M.options = {}
+## ⚡Commands
 
----@param options? Options
-function M.setup(options)
-  M.options = vim.tbl_deep_extend("force", {}, defaults, options or {})
-end
+There are two commands you can use:
 
-M.setup()
+- **SchreibmaschineToggle**: Toggle the functionality of this plugin.
+- **SchreibmaschineProfilePicker**: Start a profile selector.
 
-return M
+There are no mappings shipped, you need to create them yourself.
+
+For example:
+
+```lua
+vim.keymap.set('n', '<leader>Tt', '<cmd>SchreibmaschineToggle<cr>')
+vim.keymap.set('n', '<leader>Tp', '<cmd>SchreibmaschineProfilePicker<cr>')
+```
+
+## 🔑 License
+
+<p align="center">
+  <a href="./LICENSE">MIT</a>
+</p>
