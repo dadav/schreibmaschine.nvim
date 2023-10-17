@@ -38,6 +38,22 @@ local defaults = {
         ["<CR>"] = "boop.wav",
       },
     },
+    pop = {
+      by_event_group = {
+        typing = { "pop1.mp3", "pop2.mp3", "pop3.mp3" },
+      },
+    },
+    instrumental = {
+      by_event_group = {
+        -- you can use multiple sounds for one event or key
+        -- they will be randomly choosen
+        typing = { "short1.mp3", "short2.mp3", "short3.mp3" },
+        exit = "goodbye.mp3",
+      },
+      by_key = {
+        ["<CR>"] = "enter.mp3",
+      },
+    },
     ["tts/en"] = {
       settings = {
         discard_when_busy = false,

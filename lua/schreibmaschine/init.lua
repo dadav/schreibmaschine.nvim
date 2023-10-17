@@ -170,10 +170,20 @@ function M.configure()
 
       if M.config.options.profiles[M.profile].by_event_group[event_group] ~= nil then
         local events = {}
-        local sound_file = M.resolve_sound(M.config.options.profiles[M.profile].by_event_group[event_group])
+        local sounds = {}
+        local one_or_more_sounds = M.config.options.profiles[M.profile].by_event_group[event_group]
+
+        if type(one_or_more_sounds) == "string" then
+          table.insert(sounds, M.resolve_sound(one_or_more_sounds))
+        elseif type(one_or_more_sounds) == "table" then
+          for _, s in pairs(one_or_more_sounds) do
+            table.insert(sounds, M.resolve_sound(s))
+          end
+        end
+
         local play_sound = function()
           if M.active then
-            M.play(sound_file)
+            M.play(sounds[math.random(#sounds)])
           end
         end
 
@@ -207,12 +217,18 @@ function M.configure()
   if key_overrides ~= nil then
     local key_to_sound = {}
     for key, sound in pairs(key_overrides) do
+      local key_sounds = {}
+
+      if type(sound) == "string" then
+        table.insert(key_sounds, M.resolve_sound(sound))
+      elseif type(sound) == "table" then
+        for _, s in pairs(sound) do
+          table.insert(key_sounds, M.resolve_sound(s))
+        end
+      end
       -- Create new table with keys converted with `nvim_replace_termcodes` and sound path resolved
-      key_to_sound = vim.tbl_extend(
-        "force",
-        key_to_sound,
-        { [vim.api.nvim_replace_termcodes(key, true, true, true)] = M.resolve_sound(sound) }
-      )
+      key_to_sound =
+        vim.tbl_extend("force", key_to_sound, { [vim.api.nvim_replace_termcodes(key, true, true, true)] = key_sounds })
     end
     vim.on_key(function(pressed)
       -- If profile changed, remove the listener by returning nil
@@ -223,7 +239,7 @@ function M.configure()
       if M.active then
         local s = key_to_sound[pressed]
         if s ~= nil then
-          M.play(s)
+          M.play(s[math.random(#s)])
         end
       end
     end)
