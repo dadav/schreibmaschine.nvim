@@ -29,6 +29,20 @@ local defaults = {
         ["<CR>"] = "enter.wav",
       },
     },
+    kid = {
+      by_event_group = {
+        typing = { "pew1.mp3", "pew2.mp3" },
+      },
+      by_key = {
+        ["<CR>"] = "enter.mp3",
+      },
+    },
+    whistle = {
+      by_event_group = {
+        start = "start.mp3",
+        exit = "exit.mp3",
+      },
+    },
     bubble = {
       by_event_group = {
         typing = "beep.wav",
