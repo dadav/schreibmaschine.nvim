@@ -38,7 +38,22 @@ local defaults = {
         ["<CR>"] = "boop.wav",
       },
     },
-    tts = {
+    ["tts/en"] = {
+      settings = {
+        discard_when_busy = false,
+        max_parallel_sounds = 1,
+      },
+      by_event_group = {
+        save = "file_saved.mp3",
+        load = "file_loaded.mp3",
+        create = "file_created.mp3",
+        start = "whats_up.mp3",
+        exit = "goodbye.mp3",
+        suspend = "dont_forget_me.mp3",
+        resume = "glad_you_didnt_forget_me.mp3",
+      },
+    },
+    ["tts/jp"] = {
       settings = {
         discard_when_busy = false,
         max_parallel_sounds = 1,
