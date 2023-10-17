@@ -37,7 +37,7 @@
   -- set the active profile, which must be defined in `profiles`
   active_profile = "typewriter",
   -- group multiple events together, see `:h autocmd-events` for more informations
-  -- if a non existent event is used, it's treated as a pattern (see `:h nvim_create_autocmd`)
+  -- if a non existent event is used, it's treated as a user event (see `:h nvim_create_autocmd`)
   event_groups = {
     typing = { "InsertCharPre" },
     start = { "VimEnter" },
