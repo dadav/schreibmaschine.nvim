@@ -29,7 +29,7 @@
 ## 🎨 Configuration
 
 ```lua
-local defaults = {
+{
   -- set the active profile, which must be defined in `profiles`
   active_profile = "typewriter",
   -- group multiple events together, see `:h autocmd-events` for more informations
@@ -95,6 +95,8 @@ local defaults = {
   -- the default profile options.
   -- overwrite them in profiles.$name.settings
   defaults = {
+    -- kill remaining processes on VimLeavePre
+    cleanup = false,
     -- if enabled, sounds will be discarded if `max_parallel_sounds` is reached
     discard_when_busy = true,
     -- limits the parallel sounds (mpv processes)
@@ -136,6 +138,4 @@ vim.keymap.set('n', '<leader>Tp', '<cmd>SchreibmaschineProfilePicker<cr>')
 
 ## 🔑 License
 
-<p align="center">
-  <a href="./LICENSE">MIT</a>
-</p>
+[MIT](./LICENSE)
