@@ -14,6 +14,10 @@
 {
   "dadav/schreibmaschine.nvim",
   lazy = false,
+  init = function()
+    vim.keymap.set('n', '<leader>Tt', '<cmd>SchreibmaschineToggle<cr>')
+    vim.keymap.set('n', '<leader>Tp', '<cmd>SchreibmaschineProfilePicker<cr>')
+  end,
   opts = {
     -- your configuration comes here
     -- or leave it empty to use the default settings
@@ -142,7 +146,8 @@ There are two commands you can use:
 - **SchreibmaschineToggle**: Toggle the functionality of this plugin.
 - **SchreibmaschineProfilePicker**: Start a profile selector.
 
-There are no mappings shipped, you need to create them yourself.
+There are no mappings shipped, you need to create them yourself
+(for example in the `init` function, see the installation section).
 
 For example:
 
