@@ -90,7 +90,7 @@ local defaults = {
       },
       by_event_group = {
         save = "file_saved.mp3",
-        load = "file_loaded.mp3",
+        -- load = "file_loaded.mp3",
         create = "file_created.mp3",
         start = "whats_up.mp3",
         exit = "goodbye.mp3",
@@ -113,7 +113,7 @@ local defaults = {
       },
       by_event_group = {
         save = "file_saved.mp3",
-        load = "file_loaded.mp3",
+        -- load = "file_loaded.mp3",
         create = "file_created.mp3",
         start = "whats_up.mp3",
         exit = "goodbye.mp3",
