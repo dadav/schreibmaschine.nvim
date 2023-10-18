@@ -124,11 +124,30 @@ local defaults = {
     nsfw = {
       settings = {
         max_parallel_sounds = 1,
+        discard_when_busy = false,
         -- disable randomizations completely
-        randomize = { {} },
+        randomize = { order = { enable = true }, speed = { enable = false }, volume = { enable = false } },
       },
       by_event_group = {
-        start = "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+        -- start = "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+        typing = {
+          "rick1.mp3",
+          "rick2.mp3",
+          "rick3.mp3",
+          "rick4.mp3",
+          "rick5.mp3",
+          "rick6.mp3",
+          "rick7.mp3",
+          "rick8.mp3",
+          "rick9.mp3",
+          "rick10.mp3",
+          "rick11.mp3",
+          "rick12.mp3",
+          "rick13.mp3",
+          "rick14.mp3",
+          "rick15.mp3",
+          "rick16.mp3",
+        },
       },
     },
   },
