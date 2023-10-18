@@ -37,7 +37,7 @@
   -- set the active profile, which must be defined in `profiles`
   active_profile = "typewriter",
   -- group multiple events together, see `:h autocmd-events` for more informations
-  -- if a non existent event is used, it's treated as a user event (see `:h nvim_create_autocmd`)
+  -- if a non existent event is used, it's treated as a pattern (see `:h nvim_create_autocmd`)
   event_groups = {
     typing = { "InsertCharPre" },
     start = { "VimEnter" },
@@ -61,6 +61,20 @@
         ["<CR>"] = "enter.wav",
       },
     },
+    kid = {
+      by_event_group = {
+        typing = { "pew1.mp3", "pew2.mp3" },
+      },
+      by_key = {
+        ["<CR>"] = "enter.mp3",
+      },
+    },
+    whistle = {
+      by_event_group = {
+        start = "start.mp3",
+        exit = "exit.mp3",
+      },
+    },
     bubble = {
       by_event_group = {
         typing = "beep.wav",
@@ -70,10 +84,41 @@
         ["<CR>"] = "boop.wav",
       },
     },
+    pop = {
+      by_event_group = {
+        typing = { "pop1.mp3", "pop2.mp3", "pop3.mp3" },
+      },
+    },
+    instrumental = {
+      by_event_group = {
+        -- you can use multiple sounds for one event or key
+        -- they will be randomly choosen
+        typing = { "short1.mp3", "short2.mp3", "short3.mp3" },
+        exit = "goodbye.mp3",
+      },
+      by_key = {
+        ["<CR>"] = "enter.mp3",
+      },
+      settings = {
+        randomize = {
+          order = {
+            enable = true,
+          },
+        },
+      },
+    },
     ["tts/en"] = {
       settings = {
         discard_when_busy = false,
         max_parallel_sounds = 1,
+        randomize = {
+          volume = {
+            enable = false,
+          },
+          speed = {
+            enable = false,
+          },
+        },
       },
       by_event_group = {
         save = "file_saved.mp3",
@@ -89,6 +134,14 @@
       settings = {
         discard_when_busy = false,
         max_parallel_sounds = 1,
+        randomize = {
+          volume = {
+            enable = false,
+          },
+          speed = {
+            enable = false,
+          },
+        },
       },
       by_event_group = {
         save = "file_saved.mp3",
@@ -122,17 +175,28 @@
     max_parallel_sounds = 3,
     -- adds some randomization to the sounds
     randomize = {
+      -- randomize the volume of the sound file
       volume = {
         enable = true,
         -- 0 means silent, 1 means full volume
         min = 0.75,
         max = 1,
       },
+      -- randomize the speed of the sound file
       speed = {
         enable = true,
         -- 0.1 means super slow, 1 means normal speed, 2 means double
         min = 0.75,
         max = 1,
+      },
+      -- if enabled, play the sounds in order (in a loop)
+      order = {
+        enable = false,
+      },
+      -- remember the played sound for the events or keys
+      -- relevant if multiple sounds per event/key were configured
+      persistent_assignment = {
+        enable = false,
       },
     },
   },
