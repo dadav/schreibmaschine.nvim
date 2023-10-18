@@ -67,11 +67,26 @@ local defaults = {
       by_key = {
         ["<CR>"] = "enter.mp3",
       },
+      settings = {
+        randomize = {
+          order = {
+            enable = true,
+          },
+        },
+      },
     },
     ["tts/en"] = {
       settings = {
         discard_when_busy = false,
         max_parallel_sounds = 1,
+        randomize = {
+          volume = {
+            enable = false,
+          },
+          speed = {
+            enable = false,
+          },
+        },
       },
       by_event_group = {
         save = "file_saved.mp3",
@@ -87,6 +102,14 @@ local defaults = {
       settings = {
         discard_when_busy = false,
         max_parallel_sounds = 1,
+        randomize = {
+          volume = {
+            enable = false,
+          },
+          speed = {
+            enable = false,
+          },
+        },
       },
       by_event_group = {
         save = "file_saved.mp3",
@@ -120,17 +143,28 @@ local defaults = {
     max_parallel_sounds = 3,
     -- adds some randomization to the sounds
     randomize = {
+      -- randomize the volume of the sound file
       volume = {
         enable = true,
         -- 0 means silent, 1 means full volume
         min = 0.75,
         max = 1,
       },
+      -- randomize the speed of the sound file
       speed = {
         enable = true,
         -- 0.1 means super slow, 1 means normal speed, 2 means double
         min = 0.75,
         max = 1,
+      },
+      -- if enabled, play the sounds in order (in a loop)
+      order = {
+        enable = false,
+      },
+      -- remember the played sound for the events or keys
+      -- relevant if multiple sounds per event/key were configured
+      persistent_assignment = {
+        enable = false,
       },
     },
   },

@@ -8,6 +8,10 @@ M.config = require("schreibmaschine.config")
 M.active = true
 -- To access the internal sound files
 M.profiles_dir = vim.fs.dirname(debug.getinfo(1, "S").source:sub(2)) .. "/profiles"
+-- Track assignments
+M.assignments = {}
+-- Track the order
+M.order = {}
 
 ---Play the given sound with mpv
 ---@param sound string
@@ -183,7 +187,37 @@ function M.configure()
 
         local play_sound = function()
           if M.active then
-            M.play(sounds[math.random(#sounds)])
+            local sound_to_play = nil
+            -- check if persistent assignment is enabled and if already assigned
+            if
+              M.profile_settings.randomize.persistent_assignment ~= nil
+              and M.profile_settings.randomize.persistent_assignment.enable
+            then
+              if M.assignments[event_group] ~= nil then
+                sound_to_play = M.assignments[event_group]
+              else
+                vim.notify(string.format("Table is %s but key is %s", vim.inspect(M.assignments), event_group))
+              end
+            end
+            if
+              M.profile_settings.randomize.order ~= nil
+              and M.profile_settings.randomize.order.enable
+              and sound_to_play == nil
+            then
+              -- play in order
+              while sound_to_play == nil do
+                M.order[event_group], sound_to_play = next(sounds, M.order[event_group])
+              end
+            elseif sound_to_play == nil then
+              sound_to_play = sounds[math.random(#sounds)]
+            end
+
+            if sound_to_play ~= nil then
+              M.assignments[event_group] = sound_to_play
+              M.play(sound_to_play)
+            else
+              error("Could not determine sound to play")
+            end
           end
         end
 
@@ -217,8 +251,8 @@ function M.configure()
   if key_overrides ~= nil then
     local key_to_sound = {}
     for key, sound in pairs(key_overrides) do
+      -- create a list which contains the sounds
       local key_sounds = {}
-
       if type(sound) == "string" then
         table.insert(key_sounds, M.resolve_sound(sound))
       elseif type(sound) == "table" then
@@ -226,6 +260,7 @@ function M.configure()
           table.insert(key_sounds, M.resolve_sound(s))
         end
       end
+
       -- Create new table with keys converted with `nvim_replace_termcodes` and sound path resolved
       key_to_sound =
         vim.tbl_extend("force", key_to_sound, { [vim.api.nvim_replace_termcodes(key, true, true, true)] = key_sounds })
@@ -239,7 +274,35 @@ function M.configure()
       if M.active then
         local s = key_to_sound[pressed]
         if s ~= nil then
-          M.play(s[math.random(#s)])
+          local sound_to_play = nil
+          -- check if persistent assignment is enabled and if already assigned
+          if
+            M.profile_settings.randomize.persistent_assignment
+            and M.profile_settings.randomize.persistent_assignment.enable
+          then
+            if M.assignments[pressed] ~= nil then
+              sound_to_play = M.assignments[pressed]
+            end
+          end
+          if
+            M.profile_settings.randomize.order
+            and M.profile_settings.randomize.order.enable
+            and sound_to_play == nil
+          then
+            -- play in order
+            while sound_to_play == nil do
+              M.order[pressed], sound_to_play = next(s, M.order[pressed])
+            end
+          elseif sound_to_play == nil then
+            sound_to_play = s[math.random(#s)]
+          end
+
+          if sound_to_play ~= nil then
+            M.assignments[pressed] = sound_to_play
+            M.play(sound_to_play)
+          else
+            error("Could not determine sound to play")
+          end
         end
       end
     end)
