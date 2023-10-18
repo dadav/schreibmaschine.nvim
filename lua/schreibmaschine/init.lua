@@ -12,24 +12,30 @@ M.profiles_dir = vim.fs.dirname(debug.getinfo(1, "S").source:sub(2)) .. "/profil
 M.assignments = {}
 -- Track the order
 M.order = {}
+-- Queue
+M.playlist = {}
 
 ---Play the given sound with mpv
----@param sound string
-function M.play(sound)
-  if sound == nil then
-    return
-  end
-
+function M.play_next()
   if M.process_counter >= (M.profile_settings.max_parallel_sounds or 3) then
     if M.profile_settings.discard_when_busy then
+      table.remove(M.playlist)
       return
     else
       -- currently busy, try again in 200ms
       vim.defer_fn(function()
-        M.play(sound)
-      end, 200)
+        M.play_next()
+      end, 100)
       return
     end
+  end
+
+  -- fifo
+  local sound = table.remove(M.playlist, 1)
+
+  if sound == nil then
+    -- playlist is empty
+    return
   end
 
   if not vim.fn.filereadable(sound) then
@@ -214,7 +220,8 @@ function M.configure()
 
             if sound_to_play ~= nil then
               M.assignments[event_group] = sound_to_play
-              M.play(sound_to_play)
+              table.insert(M.playlist, sound_to_play)
+              M.play_next()
             else
               error("Could not determine sound to play")
             end
@@ -299,7 +306,8 @@ function M.configure()
 
           if sound_to_play ~= nil then
             M.assignments[pressed] = sound_to_play
-            M.play(sound_to_play)
+            table.insert(M.playlist, sound_to_play)
+            M.play_next()
           else
             error("Could not determine sound to play")
           end
