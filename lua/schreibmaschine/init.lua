@@ -38,7 +38,7 @@ function M.play_next()
     return
   end
 
-  if not vim.fn.filereadable(sound) then
+  if vim.fn.filereadable(sound) == 0 then
     error("Can't read sound file: " .. sound)
   end
 
@@ -164,7 +164,7 @@ function M.resolve_sound(given_path)
 
   -- Check if file exist in profile dir
   local profile_file = vim.fn.expand(string.format("%s/%s/%s", M.profiles_dir, M.profile, given_path))
-  if vim.fn.filereadable(profile_file) then
+  if vim.fn.filereadable(profile_file) == 1 then
     return profile_file
   end
   return vim.fn.expand(given_path)
