@@ -124,6 +124,11 @@ end
 function M.setup(opts)
   require("schreibmaschine.config").setup(opts)
 
+  -- check if mpv is present
+  if vim.fn.executable("mpv") < 1 then
+    return vim.notify("mpv not found, please install.", vim.log.levels.ERROR, { title = "schreibmaschine.nvim" })
+  end
+
   M.profile = M.config.options.active_profile
 
   if M.config.options.profiles[M.profile] == nil then
