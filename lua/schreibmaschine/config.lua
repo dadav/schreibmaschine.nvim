@@ -54,7 +54,12 @@ local defaults = {
     },
     pop = {
       by_event_group = {
-        typing = { "pop1.mp3", "pop2.mp3", "pop3.mp3" },
+        typing = { "pop1.mp3", "pop2.mp3", "pop3.mp3", "pop4.mp3" },
+      },
+      by_key = {
+        ["<CR>"] = "pop5.mp3",
+        ["<ESC>"] = "pop6.mp3",
+        ["<BS>"] = "pop7.mp3",
       },
     },
     fart = {
