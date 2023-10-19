@@ -57,6 +57,14 @@ local defaults = {
         typing = { "pop1.mp3", "pop2.mp3", "pop3.mp3" },
       },
     },
+    fart = {
+      by_event_group = {
+        typing = { "fart1.mp3", "fart2.mp3" },
+      },
+      by_key = {
+        ["<CR>"] = { "fart3.mp3", "fart4.mp3" },
+      },
+    },
     instrumental = {
       by_event_group = {
         -- you can use multiple sounds for one event or key
@@ -126,6 +134,7 @@ local defaults = {
         max_parallel_sounds = 1,
         -- disable randomizations completely
         randomize = { {} },
+        cleanup = true,
       },
       by_event_group = {
         start = "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
