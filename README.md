@@ -86,7 +86,20 @@
     },
     pop = {
       by_event_group = {
-        typing = { "pop1.mp3", "pop2.mp3", "pop3.mp3" },
+        typing = { "pop1.mp3", "pop2.mp3", "pop3.mp3", "pop4.mp3" },
+      },
+      by_key = {
+        ["<CR>"] = "pop5.mp3",
+        ["<ESC>"] = "pop6.mp3",
+        ["<BS>"] = "pop7.mp3",
+      },
+    },
+    fart = {
+      by_event_group = {
+        typing = { "fart1.mp3", "fart2.mp3" },
+      },
+      by_key = {
+        ["<CR>"] = { "fart3.mp3", "fart4.mp3" },
       },
     },
     instrumental = {
@@ -122,7 +135,7 @@
       },
       by_event_group = {
         save = "file_saved.mp3",
-        load = "file_loaded.mp3",
+        -- load = "file_loaded.mp3",
         create = "file_created.mp3",
         start = "whats_up.mp3",
         exit = "goodbye.mp3",
@@ -145,7 +158,7 @@
       },
       by_event_group = {
         save = "file_saved.mp3",
-        load = "file_loaded.mp3",
+        -- load = "file_loaded.mp3",
         create = "file_created.mp3",
         start = "whats_up.mp3",
         exit = "goodbye.mp3",
@@ -158,6 +171,7 @@
         max_parallel_sounds = 1,
         -- disable randomizations completely
         randomize = { {} },
+        cleanup = true,
       },
       by_event_group = {
         start = "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
@@ -212,13 +226,6 @@ There are two commands you can use:
 
 There are no mappings shipped, you need to create them yourself
 (for example in the `init` function, see the installation section).
-
-For example:
-
-```lua
-vim.keymap.set('n', '<leader>Tt', '<cmd>SchreibmaschineToggle<cr>')
-vim.keymap.set('n', '<leader>Tp', '<cmd>SchreibmaschineProfilePicker<cr>')
-```
 
 ## 🔑 License
 
