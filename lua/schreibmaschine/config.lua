@@ -7,6 +7,7 @@ local defaults = {
   -- group multiple events together, see `:h autocmd-events` for more informations
   -- if a non existent event is used, it's treated as a pattern (see `:h nvim_create_autocmd`)
   event_groups = {
+    yank = { "TextYankPost" },
     typing = { "InsertCharPre" },
     start = { "VimEnter" },
     exit = { "VimLeavePre" },
@@ -28,11 +29,23 @@ local defaults = {
       by_event_group = {
         -- if the filenames are relative, the will be resolved to:
         -- $PLUGIN/profiles/$profile/$filename
-        typing = "key.wav",
+        typing = {
+          "key1.mp3",
+          "key2.mp3",
+          "key3.mp3",
+          "key4.mp3",
+          "key5.mp3",
+          "key6.mp3",
+          "key7.mp3",
+          "key8.mp3",
+          "key9.mp3",
+          "key10.mp3",
+        },
+        save = "save.mp3",
       },
       by_key = {
         -- see `:h key-notation` for more keys
-        ["<CR>"] = "enter.wav",
+        ["<CR>"] = "enter.mp3",
       },
     },
     kid = {
