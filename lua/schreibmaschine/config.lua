@@ -143,6 +143,11 @@ local defaults = {
         exit = "goodbye.mp3",
         suspend = "dont_forget_me.mp3",
         resume = "glad_you_didnt_forget_me.mp3",
+        lazy_install = "install_complete.mp3",
+        lazy_update = "update_complete.mp3",
+        lazy_sync = "sync_complete.mp3",
+        lazy_reload = "reload_complete.mp3",
+        lazy_check = "check_complete.mp3",
       },
     },
     nsfw = {
