@@ -59,7 +59,7 @@ function M.play_next()
   end
 
   -- Determine volume
-  local volume = 100
+  local volume = M.profile_settings.volume * 100
   if
     M.profile_settings.randomize
     and M.profile_settings.randomize.volume

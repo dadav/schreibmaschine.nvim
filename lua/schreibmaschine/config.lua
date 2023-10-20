@@ -178,6 +178,9 @@ local defaults = {
   -- the default profile options.
   -- overwrite them in profiles.$name.settings
   defaults = {
+    -- default volume; may be changed by the randomize.volume settings
+    -- 1 means 100%
+    volume = 1,
     -- kill remaining processes on VimLeavePre
     cleanup = false,
     -- if enabled, sounds will be discarded if `max_parallel_sounds` is reached
